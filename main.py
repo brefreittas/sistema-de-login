@@ -23,15 +23,15 @@ class PrimeiraJanela:
         
         #Criando um novo usuário e registrando no cadastros.txt
         if event == 'Se registre':           
-            class Registro:
+            class registro:
                 tema()
                 layout = [
-                    [sg.Text('Cadastro', size=(20), justification='c')],
+                    [sg.Text('Cadastro', size=(40), justification='c')],
                     [sg.Text('Usuário')],
-                    [sg.Input(size=(20), key='user')],
+                    [sg.Input(size=(40), key='user')],
                     [sg.Text('Senha')],
-                    [sg.Input(size=(20), key='senha', password_char='*')],
-                    [sg.Button('Salvar'), sg.Button('Sair')]
+                    [sg.Input(size=(40), key='senha', password_char='*')],
+                    [sg.Button('Salvar'), sg.Button('Sair'), sg.Text(text_color='red', key='alerta')]
                 ]
             
                 window = sg.Window('Registro', layout)
@@ -41,12 +41,17 @@ class PrimeiraJanela:
 
                     if event == sg.WINDOW_CLOSED or event == 'Sair':
                         break
+                    
+                    if values['user'] == '' or values['senha'] == '':
+                        window['alerta'].update('Preencha todos os campos')
 
                     if event == 'Salvar':
                         with open ('cadastros.txt', 'a') as f:
                             f.write(values['user'] + '|' + values['senha'] + '\n')
+                            window['alerta'].update('Usuário registrado com sucesso', text_color='green')
+
                 window.close()
-        
+
         if event == 'Entrar':         
             try:
                 f = open('cadastros.txt', 'rt')
@@ -86,7 +91,5 @@ class PrimeiraJanela:
 
         if values['usuario'] == '' or values['senha'] == '':
             window['alerta'].update('Preencha todos os campos!')
-
-        
     #Fechando a janela
     window.close()

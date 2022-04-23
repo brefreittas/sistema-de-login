@@ -1,4 +1,3 @@
-from tracemalloc import stop
 import PySimpleGUI as sg
 import os
 
@@ -20,7 +19,7 @@ class PrimeiraJanela:
     while True:      
         event, values = window.read()
 
-        if event == sg.WINDOW_CLOSED or event == 'Sair':
+        if event in (sg.WINDOW_CLOSED or 'Sair'):
             break
         
         #Criando um novo usuário e registrando no cadastros.txt
@@ -113,7 +112,7 @@ class PrimeiraJanela:
                                     while True:
                                         event, values = window.read()
 
-                                        if event == sg.WINDOW_CLOSED or event == 'Sair':
+                                        if event in (sg.WINDOW_CLOSED or 'Sair'):
                                             break
                                     
                                     window.close()    
